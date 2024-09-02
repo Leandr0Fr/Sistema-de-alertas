@@ -37,18 +37,18 @@ public class TestSystemAlertGetAlerts {
 
     @Test(expected = IllegalArgumentException.class)
     public void testUserIDNegativeGetAlertsNoRead() {
-        this.systemAlert.getNoReadAlerts(-1);
+        this.systemAlert.getNoReadAndNoExpiredAlerts(-1);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testUserIDNotExistsGetAlertsNoRead() {
-        this.systemAlert.getNoReadAlerts(this.database.getUsers().size() + 1);
+        this.systemAlert.getNoReadAndNoExpiredAlerts(this.database.getUsers().size() + 1);
     }
 
     @Test()
     public void testGetAlertsNoReadWithNoAlerts() {
         this.registerManager.registerUser("Menem", "carlos@gmail.com");
-        assertEquals(0, this.systemAlert.getNoReadAlerts(0).size());
+        assertEquals(0, this.systemAlert.getNoReadAndNoExpiredAlerts(0).size());
 
     }
 
@@ -56,7 +56,7 @@ public class TestSystemAlertGetAlerts {
     public void testGetAlertsNoReadWithZeroAlerts() {
         this.registerManager.registerUser("Menem", "carlos@gmail.com");
 
-        List<Alert> alertsUser = this.systemAlert.getNoReadAlerts(0);
+        List<Alert> alertsUser = this.systemAlert.getNoReadAndNoExpiredAlerts(0);
         List<Alert> alertsExpected = new ArrayList<>();
 
         assertEquals(alertsExpected, alertsUser);
@@ -71,7 +71,7 @@ public class TestSystemAlertGetAlerts {
         this.systemAlert.notifyUser(alert,0);
         this.database.getUsers().get(0).viewAlert(alert);
 
-        List<Alert> alertsUser = this.systemAlert.getNoReadAlerts(0);
+        List<Alert> alertsUser = this.systemAlert.getNoReadAndNoExpiredAlerts(0);
         List<Alert> alertsExpected = new ArrayList<>();
 
         assertEquals(alertsExpected, alertsUser);
@@ -84,7 +84,7 @@ public class TestSystemAlertGetAlerts {
         Alert alert = new UrgentAlert(database.getTopics().get(0), true);
         this.systemAlert.notifyUser(alert,0);
 
-        List<Alert> alertsUser = this.systemAlert.getNoReadAlerts(0);
+        List<Alert> alertsUser = this.systemAlert.getNoReadAndNoExpiredAlerts(0);
         List<Alert> alertsExpected = new ArrayList<Alert>();
         alertsExpected.add(alert);
 
@@ -103,7 +103,7 @@ public class TestSystemAlertGetAlerts {
         this.systemAlert.notifyUser(alert,0);
 
 
-        List<Alert> alertsUser = this.systemAlert.getNoReadAlerts(0);
+        List<Alert> alertsUser = this.systemAlert.getNoReadAndNoExpiredAlerts(0);
         List<Alert> alertsExpected = new ArrayList<Alert>();
         alertsExpected.add(alert);
         alertsExpected.add(alertTwo);
@@ -121,7 +121,7 @@ public class TestSystemAlertGetAlerts {
         this.systemAlert.notifyUser(alert,0);
         this.systemAlert.notifyUser(alertTwo,0);
 
-        List<Alert> alertsUser = this.systemAlert.getNoReadAlerts(0);
+        List<Alert> alertsUser = this.systemAlert.getNoReadAndNoExpiredAlerts(0);
         List<Alert> alertsExpected = new ArrayList<Alert>();
         alertsExpected.add(alert);
         alertsExpected.add(alertTwo);
@@ -130,7 +130,7 @@ public class TestSystemAlertGetAlerts {
     }
 
     @Test()
-    public void testValidGetNoReadAlerts() {
+    public void testValidGetNoReadAndNoExpiredAlerts() {
         this.registerManager.registerUser("Menem", "carlos@gmail.com");
         this.registerManager.registerTopic("Test1", "this topic is for testing.");
         this.registerManager.registerTopic("Test2", "this topic is for testing.");
@@ -159,7 +159,24 @@ public class TestSystemAlertGetAlerts {
         alertsExpected.add(alertFour);
         alertsExpected.add(alertSix);
 
-        List<Alert> alertsUser = this.systemAlert.getNoReadAlerts(0);
+        List<Alert> alertsUser = this.systemAlert.getNoReadAndNoExpiredAlerts(0);
+        assertEquals(alertsExpected, alertsUser);
+    }
+
+    @Test()
+    public void testGetAlertsWithTwoAlertsExpired() {
+        this.registerManager.registerUser("Menem", "carlos@gmail.com");
+        this.registerManager.registerTopic("Test", "this topic is for testing.");
+        this.registerManager.registerTopic("Test2", "this topic is for testing.");
+        Alert alert = new UrgentAlert(database.getTopics().get(0), true,"2100:12:05 05:33");
+        Alert alertTwo = new InformativeAlert(database.getTopics().get(0), true, "2100:12:05 05:33");
+
+        this.systemAlert.notifyUser(alert,0);
+        this.systemAlert.notifyUser(alertTwo,0);
+
+        List<Alert> alertsUser = this.systemAlert.getNoReadAndNoExpiredAlerts(0);
+        List<Alert> alertsExpected = new ArrayList<Alert>();
+
         assertEquals(alertsExpected, alertsUser);
     }
 }

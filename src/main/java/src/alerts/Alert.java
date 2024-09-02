@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
+import static src.utils.ParseTime.parseTime;
+
 
 public class Alert {
     private LocalDateTime expirationDate;
@@ -32,20 +34,12 @@ public class Alert {
         this.topic = topic;
     }
 
-    private LocalDateTime parseTime(String expirationDate) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm");
-        try {
-            return LocalDateTime.parse(expirationDate, formatter);
-        } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException(e.getMessage());
-        }
-    }
 
     public boolean isUnique() {
         return isUnique;
     }
 
-    public void readAlert(){
+    public void readAlert() {
         this.isRead = true;
     }
 

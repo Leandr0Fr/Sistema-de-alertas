@@ -8,6 +8,8 @@ import src.notifications.NotificationPanel;
 import src.observers.ObserverPanel;
 import src.observers.SubjectPanel;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class SystemAlert implements SubjectPanel {
@@ -47,7 +49,7 @@ public class SystemAlert implements SubjectPanel {
         observers.get(userID).update(alert);
     }
 
-    public List<Alert> getNoReadAlerts(int userID) {
+    public List<Alert> getNoReadAndNoExpiredAlerts(int userID) {
         if (userID < 0) throw new IllegalArgumentException("userID no puede ser negativo");
         if (!this.db.getUsers().containsKey(userID)) throw new IllegalArgumentException("userID no existe");
 
@@ -57,13 +59,13 @@ public class SystemAlert implements SubjectPanel {
         List<Alert> allAlerts = notificationPanel.getAlerts();
         for (int i = allAlerts.size() - 1; i >= 0; i--) {
             Alert alert = allAlerts.get(i);
-            if (alert instanceof UrgentAlert && !alert.isRead()) {
+            if (alert instanceof UrgentAlert && isAlertNoReadAndNoExpired(alert)) {
                 alerts.add(alert);
             }
         }
 
         for (Alert alert : allAlerts) {
-            if (alert instanceof InformativeAlert && !alert.isRead()) {
+            if (alert instanceof InformativeAlert && isAlertNoReadAndNoExpired(alert)) {
                 alerts.add(alert);
             }
         }
@@ -71,4 +73,8 @@ public class SystemAlert implements SubjectPanel {
         return alerts;
     }
 
+    private boolean isAlertNoReadAndNoExpired(Alert alert){
+        LocalDateTime localTime = LocalDateTime.now();
+        return !alert.isRead() && localTime.isAfter(alert.getExpirationDate());
+    }
 }

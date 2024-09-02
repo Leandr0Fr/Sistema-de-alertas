@@ -14,9 +14,11 @@ public class User {
 
     public User(String name, String email) {
         if (!EmailValidatorImp.isEmailValid(email)) throw new IllegalArgumentException("email no válido");
+        if (name == null || name.isEmpty()) throw new IllegalArgumentException("name no puede ser vacío ni null");
         this.name = name;
         this.email = email;
         this.notificationPanel = new NotificationPanel();
         this.topicsDenied = new ArrayList<>();
     }
+
 }

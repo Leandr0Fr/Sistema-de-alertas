@@ -57,6 +57,10 @@ public class Alert {
         return expirationDate;
     }
 
+    public Topic getTopic() {
+        return topic;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

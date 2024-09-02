@@ -1,5 +1,6 @@
 package database;
 
+import alerts.topics.Topic;
 import observers.ObserverPanel;
 import user.User;
 import org.junit.Before;
@@ -45,5 +46,22 @@ public class TestDatabase {
     @Test(expected = NullPointerException.class)
     public void testAddNullUser() {
         database.addUser(null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testAddNullTopic() {
+        database.addTopic(null);
+    }
+
+    @Test()
+    public void testAddTopic() {
+        assertEquals(0, database.getTopics().size());
+
+        Topic topic = new Topic("Test", "This topic is for testing");
+        database.addTopic(topic);
+
+        assertEquals(topic, database.getTopics().get(0));
+        assertEquals(1, database.getTopics().size());
+
     }
 }

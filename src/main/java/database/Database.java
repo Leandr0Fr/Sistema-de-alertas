@@ -41,6 +41,11 @@ public class Database {
         setNumRecordsUser(getNumRecordsUser() + 1);
     }
 
+    public void addTopic(Topic t){
+        if (t == null) throw new NullPointerException("Topic no puede ser null");
+        getTopics().add(t);
+    }
+
     public void setNumRecordsUser(int n) {
         this.numRecordsUser = n;
     }

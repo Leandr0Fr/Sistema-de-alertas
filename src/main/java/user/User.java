@@ -48,6 +48,10 @@ public class User {
         return notificationPanel;
     }
 
+    public String getEmail(){
+        return this.email;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

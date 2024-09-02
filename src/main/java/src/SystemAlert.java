@@ -1,11 +1,14 @@
 package src;
 
 import src.alerts.Alert;
+import src.alerts.InformativeAlert;
+import src.alerts.UrgentAlert;
 import src.database.Database;
+import src.notifications.NotificationPanel;
 import src.observers.ObserverPanel;
 import src.observers.SubjectPanel;
 
-import java.util.Map;
+import java.util.*;
 
 public class SystemAlert implements SubjectPanel {
     private Database db;
@@ -42,6 +45,30 @@ public class SystemAlert implements SubjectPanel {
     @Override
     public void notifyObserver(Map<Integer, ObserverPanel> observers, Alert alert, int userID) {
         observers.get(userID).update(alert);
+    }
+
+    public List<Alert> getNoReadAlerts(int userID) {
+        if (userID < 0) throw new IllegalArgumentException("userID no puede ser negativo");
+        if (!this.db.getUsers().containsKey(userID)) throw new IllegalArgumentException("userID no existe");
+
+        List<Alert> alerts = new ArrayList<>();
+        NotificationPanel notificationPanel = db.getUsers().get(userID).getNotificationPanel();
+
+        List<Alert> allAlerts = notificationPanel.getAlerts();
+        for (int i = allAlerts.size() - 1; i >= 0; i--) {
+            Alert alert = allAlerts.get(i);
+            if (alert instanceof UrgentAlert && !alert.isRead()) {
+                alerts.add(alert);
+            }
+        }
+
+        for (Alert alert : allAlerts) {
+            if (alert instanceof InformativeAlert && !alert.isRead()) {
+                alerts.add(alert);
+            }
+        }
+
+        return alerts;
     }
 
 }

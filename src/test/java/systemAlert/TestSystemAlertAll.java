@@ -24,7 +24,7 @@ public class TestSystemAlertAll {
     }
 
     @After()
-    public void clean(){
+    public void clean() {
         database.getUsers().clear();
         database.setNumRecordsUser(0);
         database.getObservers().clear();

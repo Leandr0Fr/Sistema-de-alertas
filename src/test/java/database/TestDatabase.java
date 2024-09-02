@@ -1,8 +1,10 @@
 package database;
 
-import alerts.topics.Topic;
-import observers.ObserverPanel;
-import user.User;
+import org.junit.After;
+import src.alerts.topics.Topic;
+import src.observers.ObserverPanel;
+import src.database.Database;
+import src.user.User;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,6 +21,13 @@ public class TestDatabase {
         database = Database.getInstance();
         testUser = new User("testuser", "test@example.com");
         testObserverPanel = this.testUser.getNotificationPanel();
+    }
+
+    @After()
+    public void clean(){
+        database.getUsers().clear();
+        database.getObservers().clear();
+        database.getTopics().clear();
     }
 
     @Test()

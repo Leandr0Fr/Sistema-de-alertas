@@ -1,7 +1,7 @@
-package alerts;
+package src.alerts;
 
 
-import alerts.topics.Topic;
+import src.alerts.topics.Topic;
 
 public class InformativeAlert extends Alert {
     public InformativeAlert(Topic topic, boolean isUnique) {

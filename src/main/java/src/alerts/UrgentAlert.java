@@ -1,6 +1,6 @@
-package alerts;
+package src.alerts;
 
-import alerts.topics.Topic;
+import src.alerts.topics.Topic;
 
 public class UrgentAlert extends Alert{
     public UrgentAlert(Topic topic, boolean isUnique) {

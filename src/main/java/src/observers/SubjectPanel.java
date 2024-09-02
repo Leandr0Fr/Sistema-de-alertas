@@ -1,6 +1,6 @@
-package observers;
+package src.observers;
 
-import alerts.Alert;
+import src.alerts.Alert;
 
 import java.util.Map;
 

@@ -1,8 +1,8 @@
-package database;
+package src.database;
 
-import alerts.topics.Topic;
-import observers.ObserverPanel;
-import user.User;
+import src.alerts.topics.Topic;
+import src.observers.ObserverPanel;
+import src.user.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;

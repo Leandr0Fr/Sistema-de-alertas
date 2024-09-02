@@ -1,8 +1,8 @@
-package user;
+package src.user;
 
-import alerts.Alert;
-import notifications.NotificationPanel;
-import utils.EmailValidatorImp;
+import src.alerts.Alert;
+import src.notifications.NotificationPanel;
+import src.utils.EmailValidatorImp;
 
 import java.util.ArrayList;
 import java.util.List;

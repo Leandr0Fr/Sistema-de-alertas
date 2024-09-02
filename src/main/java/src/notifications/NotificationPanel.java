@@ -1,7 +1,7 @@
-package notifications;
+package src.notifications;
 
-import alerts.Alert;
-import observers.ObserverPanel;
+import src.alerts.Alert;
+import src.observers.ObserverPanel;
 
 import java.util.ArrayList;
 import java.util.List;

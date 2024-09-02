@@ -1,8 +1,9 @@
 package user;
 
-import alerts.Alert;
-import alerts.InformativeAlert;
-import alerts.topics.Topic;
+import src.alerts.Alert;
+import src.alerts.InformativeAlert;
+import src.alerts.topics.Topic;
+import src.user.User;
 import org.junit.Before;
 import org.junit.Test;
 

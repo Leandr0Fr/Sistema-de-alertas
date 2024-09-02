@@ -1,7 +1,9 @@
-import alerts.Alert;
-import database.Database;
-import observers.ObserverPanel;
-import observers.SubjectPanel;
+package src;
+
+import src.alerts.Alert;
+import src.database.Database;
+import src.observers.ObserverPanel;
+import src.observers.SubjectPanel;
 
 import java.util.Map;
 

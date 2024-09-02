@@ -1,10 +1,13 @@
 package managers;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
+import src.database.Database;
+import src.managers.RegisterManager;
 
 public class TestRegisterManager {
+    private Database db;
     private RegisterManager registerManager;
     private String validName;
     private String validEmail;
@@ -13,11 +16,19 @@ public class TestRegisterManager {
 
     @Before
     public void setUp() {
+        this.db = Database.getInstance();
         this.registerManager = new RegisterManager();
         this.validName = "Menem";
         this.validEmail = "test@gmail.com";
         this.validTitle = "Test";
         this.validDescription = "This topic is for testing.";
+    }
+
+    @After()
+    public void clean(){
+        db.getUsers().clear();
+        db.getObservers().clear();
+        db.getTopics().clear();
     }
 
     @Test(expected = IllegalArgumentException.class)

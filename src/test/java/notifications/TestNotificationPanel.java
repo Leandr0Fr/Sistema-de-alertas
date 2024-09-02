@@ -1,7 +1,9 @@
 package notifications;
 
-import alerts.Alert;
-import alerts.topics.Topic;
+import org.junit.After;
+import src.alerts.Alert;
+import src.alerts.topics.Topic;
+import src.notifications.NotificationPanel;
 import org.junit.Before;
 import org.junit.Test;
 

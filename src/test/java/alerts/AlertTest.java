@@ -1,6 +1,7 @@
 package alerts;
 
-import alerts.topics.Topic;
+import src.alerts.topics.Topic;
+import src.alerts.Alert;
 import org.junit.Test;
 import org.junit.Before;
 

@@ -1,7 +1,7 @@
-package alerts;
+package src.alerts;
 
 
-import alerts.topics.Topic;
+import src.alerts.topics.Topic;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

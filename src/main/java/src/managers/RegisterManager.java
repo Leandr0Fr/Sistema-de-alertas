@@ -1,8 +1,8 @@
-package managers;
+package src.managers;
 
-import alerts.topics.Topic;
-import database.Database;
-import user.User;
+import src.alerts.topics.Topic;
+import src.database.Database;
+import src.user.User;
 
 import java.util.Collection;
 

@@ -1,5 +1,6 @@
 package utils;
 
+import src.utils.EmailValidatorImp;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -19,17 +20,17 @@ public class TestEmailValidatorImp {
     public void testValidEmail() {
         String[] validEmails = {
                 "test@example.com",
-                "user.name@domain.com",
+                "src.user.name@domain.com",
                 "user_name@domain.co.in",
-                "user+name@domain.com",
-                "user@sub.domain.com",
+                "src.user+name@domain.com",
+                "src.user@sub.domain.com",
                 "firstname.lastname@domain.com",
-                "user%name@domain.com",
-                "user-name@domain.com",
+                "src.user%name@domain.com",
+                "src.user-name@domain.com",
                 "user_name@domain.com",
-                "user+name@domain.com",
-                "user@domain-name.com",
-                "\"user@domain\"@example.com",
+                "src.user+name@domain.com",
+                "src.user@domain-name.com",
+                "\"src.user@domain\"@example.com",
                 "\"john..doe\"@example.com"
         };
 

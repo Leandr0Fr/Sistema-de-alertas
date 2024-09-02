@@ -1,4 +1,4 @@
-package alerts.topics;
+package src.alerts.topics;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package utils;
+package src.utils;
 
 import org.apache.commons.validator.routines.EmailValidator;
 public class EmailValidatorImp {

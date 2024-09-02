@@ -6,12 +6,18 @@ import org.junit.Test;
 
 public class TestRegisterManager {
     private RegisterManager registerManager;
-    private String validName = "Menem";
-    private String validEmail = "test@gmail.com";
+    private String validName;
+    private String validEmail;
+    private String validTitle;
+    private String validDescription;
 
     @Before
     public void setUp() {
         this.registerManager = new RegisterManager();
+        this.validName = "Menem";
+        this.validEmail = "test@gmail.com";
+        this.validTitle = "Test";
+        this.validDescription = "This topic is for testing.";
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -43,5 +49,30 @@ public class TestRegisterManager {
     @Test()
     public void testAddValidUser() {
         this.registerManager.registerUser("Juan", "juan@gmail.com");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testVoidTitleTopic() {
+        this.registerManager.registerTopic("", this.validDescription);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testVoidDescriptionTopic() {
+        this.registerManager.registerTopic(this.validTitle, "");
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testNullTitleTopic() {
+        this.registerManager.registerTopic(null, this.validDescription);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testNullDescriptionTopic() {
+        this.registerManager.registerTopic(this.validTitle, null);
+    }
+
+    @Test()
+    public void testAddValidTopic() {
+        this.registerManager.registerTopic(this.validTitle, this.validDescription);
     }
 }

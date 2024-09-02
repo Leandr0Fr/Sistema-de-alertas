@@ -1,5 +1,6 @@
 package managers;
 
+import alerts.topics.Topic;
 import database.Database;
 import user.User;
 
@@ -25,6 +26,14 @@ public class RegisterManager {
         }
 
         db.addUser(new User(name, email));
+    }
+
+    public void registerTopic(String title, String description){
+        if (title == null) throw new NullPointerException("Title no puede ser null");
+        if (description == null) throw new NullPointerException("Description no puede ser null");
+        if (title.isEmpty()) throw new IllegalArgumentException("Title no puede ser vacío");
+        if (description.isEmpty()) throw new IllegalArgumentException("Description no puede ser vacío");
+        db.addTopic(new Topic(title, description));
     }
 
 }

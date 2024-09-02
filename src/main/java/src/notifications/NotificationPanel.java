@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static src.constants.ExceptionMessages.ALERT_NULL_EXCEPTION;
+
 public class NotificationPanel implements ObserverPanel {
-    private List<Alert> alerts;
+    private final List<Alert> alerts;
 
     public NotificationPanel() {
         this.alerts = new ArrayList<>();
@@ -16,8 +18,8 @@ public class NotificationPanel implements ObserverPanel {
 
     @Override
     public void update(Alert alert) {
-        if(alert == null){
-            throw new NullPointerException("alert no puede ser null");
+        if (alert == null) {
+            throw new NullPointerException(ALERT_NULL_EXCEPTION);
         }
         this.alerts.add(alert);
     }

@@ -4,22 +4,21 @@ package src.alerts;
 import src.alerts.topics.Topic;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
+import static src.constants.ExceptionMessages.*;
 import static src.utils.ParseTime.parseTime;
 
 
 public class Alert {
     private LocalDateTime expirationDate;
     private boolean isRead;
-    private boolean isUnique;
-    private Topic topic;
+    private final boolean isUnique;
+    private final Topic topic;
 
     public Alert(Topic topic, boolean isUnique) {
         if (topic == null) {
-            throw new NullPointerException("topic no puede ser declarado null");
+            throw new NullPointerException(TOPIC_NULL_EXCEPTION);
         }
         this.topic = topic;
         this.isUnique = isUnique;
@@ -27,7 +26,7 @@ public class Alert {
 
     public Alert(Topic topic, boolean isUnique, String expirationDate) {
         if (topic == null) {
-            throw new NullPointerException("topic no puede ser declarado null");
+            throw new NullPointerException(TOPIC_NULL_EXCEPTION);
         }
         this.expirationDate = parseTime(expirationDate);
         this.isUnique = isUnique;

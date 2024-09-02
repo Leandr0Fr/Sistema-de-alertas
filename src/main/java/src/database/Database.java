@@ -9,13 +9,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static src.constants.ExceptionMessages.*;
+
 public class Database {
     private static Database instance;
 
     private int numRecordsUser;
-    private Map<Integer, User> users;
-    private Map<Integer, ObserverPanel> observers;
-    private List<Topic> topics;
+    private final Map<Integer, User> users;
+    private final Map<Integer, ObserverPanel> observers;
+    private final List<Topic> topics;
 
     private Database() {
         this.numRecordsUser = 0;
@@ -30,8 +32,8 @@ public class Database {
     }
 
     public void addUser(User u) {
-        if (u == null) throw new NullPointerException("User no puede ser null");
-        if (getUsers().containsValue(u)) throw new IllegalArgumentException("User ya registrado");
+        if (u == null) throw new NullPointerException(USER_NULL_EXCEPTION);
+        if (getUsers().containsValue(u)) throw new IllegalArgumentException(USER_EXISTS_EXCEPTION);
         getUsers().put(getNumRecordsUser(), u);
         getObservers().put(getNumRecordsUser(), u.getNotificationPanel());
         increaseCounter();
@@ -41,8 +43,8 @@ public class Database {
         setNumRecordsUser(getNumRecordsUser() + 1);
     }
 
-    public void addTopic(Topic t){
-        if (t == null) throw new NullPointerException("Topic no puede ser null");
+    public void addTopic(Topic t) {
+        if (t == null) throw new NullPointerException(TOPIC_NULL_EXCEPTION);
         getTopics().add(t);
     }
 

@@ -8,15 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static src.constants.ExceptionMessages.*;
+
 public class User {
-    private String name;
-    private String email;
-    private NotificationPanel notificationPanel;
-    private List<String> topicsDenied;
+    private final String name;
+    private final String email;
+    private final NotificationPanel notificationPanel;
+    private final List<String> topicsDenied;
 
     public User(String name, String email) {
-        if (!EmailValidatorImp.isEmailValid(email)) throw new IllegalArgumentException("email no válido");
-        if (name == null || name.isEmpty()) throw new IllegalArgumentException("name no puede ser vacío ni null");
+        if (!EmailValidatorImp.isEmailValid(email)) throw new IllegalArgumentException(EMAIL_INVALID_EXCEPTION);
+        if (name == null || name.isEmpty()) throw new IllegalArgumentException(NAME_NULL_VOID_EXCEPTION);
         this.name = name;
         this.email = email;
         this.notificationPanel = new NotificationPanel();
@@ -25,12 +27,12 @@ public class User {
 
     public void addTopicDenied(String topicTitle) {
         if (topicsDenied.contains(topicTitle))
-            throw new IllegalArgumentException("El topico ya está agregado: " + topicTitle);
+            throw new IllegalArgumentException(TOPICS_EXISTS_EXCEPTION + topicTitle);
         topicsDenied.add(topicTitle);
     }
 
     public boolean viewAlert(Alert alert) {
-        if (alert == null) throw new NullPointerException("alert no puede ser null");
+        if (alert == null) throw new NullPointerException(ALERT_NULL_EXCEPTION);
         for (Alert a : getNotificationPanel().getAlerts()) {
             if (a.equals(alert)) {
                 a.readAlert();

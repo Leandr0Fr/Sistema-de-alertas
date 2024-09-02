@@ -2,16 +2,18 @@ package src.alerts.topics;
 
 import java.util.Objects;
 
+import static src.constants.ExceptionMessages.*;
+
 public class Topic {
     private final String title;
     private final String description;
 
     public Topic(String title, String description) {
         if (title == null || title.isEmpty()) {
-            throw new IllegalArgumentException("title no puede ser null o vacio");
+            throw new IllegalArgumentException(TITLE_NULL_VOID_EXCEPTION);
         }
         if (description == null || description.isEmpty()) {
-            throw new IllegalArgumentException("description no puede ser null o vacio");
+            throw new IllegalArgumentException(DESCRIPTION_NULL_VOID_EXCEPTION);
         }
         this.title = title;
         this.description = description;

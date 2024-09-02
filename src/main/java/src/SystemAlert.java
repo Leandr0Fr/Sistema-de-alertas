@@ -12,18 +12,20 @@ import src.observers.SubjectPanel;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static src.constants.ExceptionMessages.*;
+
 public class SystemAlert implements SubjectPanel {
-    private Database db;
+    private final Database db;
 
     public SystemAlert() {
         this.db = Database.getInstance();
     }
 
     public void notifyAll(Alert a) {
-        if (a == null) throw new NullPointerException("alert no puede ser null");
-        if (!db.getTopics().contains(a.getTopic())) throw new IllegalArgumentException("Topic no registrado");
+        if (a == null) throw new NullPointerException(ALERT_NULL_EXCEPTION);
+        if (!db.getTopics().contains(a.getTopic())) throw new IllegalArgumentException(TOPICS_NOT_EXISTS_EXCEPTION);
         if (a.isUnique())
-            throw new IllegalArgumentException("Una alerta Unica no puede ser enviada a todos los usuarios");
+            throw new IllegalArgumentException(ALERT_UNIQUE_SEND_ALL_EXCEPTION);
         notifyObservers(this.db.getObservers(), a);
     }
 
@@ -35,12 +37,12 @@ public class SystemAlert implements SubjectPanel {
     }
 
     public void notifyUser(Alert a, int userID) {
-        if (a == null) throw new NullPointerException("alert no puede ser null");
+        if (a == null) throw new NullPointerException(ALERT_NULL_EXCEPTION);
         if (!a.isUnique())
-            throw new IllegalArgumentException("una alerta que no es única no puede ser envíada a un usuario");
-        if (!db.getTopics().contains(a.getTopic())) throw new IllegalArgumentException("Topic no registrado");
-        if (userID < 0) throw new IllegalArgumentException("userID no puede ser negativo");
-        if (!this.db.getUsers().containsKey(userID)) throw new IllegalArgumentException("userID no existe");
+            throw new IllegalArgumentException(ALERT_GLOBAL_SEND_USER_EXCEPTION);
+        if (!db.getTopics().contains(a.getTopic())) throw new IllegalArgumentException(TOPICS_NOT_EXISTS_EXCEPTION);
+        if (userID < 0) throw new IllegalArgumentException(USERID_NEGATIVE_EXCEPTION);
+        if (!this.db.getUsers().containsKey(userID)) throw new IllegalArgumentException(USERID_NOT_EXISTS_EXCEPTION);
 
         notifyObserver(this.db.getObservers(), a, userID);
     }
@@ -51,8 +53,8 @@ public class SystemAlert implements SubjectPanel {
     }
 
     public List<Alert> getNoReadAndNoExpiredAlerts(int userID) {
-        if (userID < 0) throw new IllegalArgumentException("userID no puede ser negativo");
-        if (!this.db.getUsers().containsKey(userID)) throw new IllegalArgumentException("userID no existe");
+        if (userID < 0) throw new IllegalArgumentException(USERID_NEGATIVE_EXCEPTION);
+        if (!this.db.getUsers().containsKey(userID)) throw new IllegalArgumentException(USERID_NOT_EXISTS_EXCEPTION);
 
         List<Alert> alerts = new ArrayList<>();
         NotificationPanel notificationPanel = db.getUsers().get(userID).getNotificationPanel();
@@ -80,8 +82,8 @@ public class SystemAlert implements SubjectPanel {
     }
 
     public List<Map.Entry<String, Alert>> getNoReadAlertsWithSpecificTopic(Topic topic) {
-        if (topic == null) throw new NullPointerException("Topic no puede ser null");
-        if (!this.db.getTopics().contains(topic)) throw new IllegalArgumentException("Topic no está registrado");
+        if (topic == null) throw new NullPointerException(TOPIC_NULL_EXCEPTION);
+        if (!this.db.getTopics().contains(topic)) throw new IllegalArgumentException(TOPICS_NOT_EXISTS_EXCEPTION);
 
         List<Map.Entry<String, Alert>> alertsOut = new ArrayList<>();
 

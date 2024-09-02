@@ -2,7 +2,7 @@ package src.alerts;
 
 import src.alerts.topics.Topic;
 
-public class UrgentAlert extends Alert{
+public class UrgentAlert extends Alert {
     public UrgentAlert(Topic topic, boolean isUnique) {
         super(topic, isUnique);
     }

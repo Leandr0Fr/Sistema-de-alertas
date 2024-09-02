@@ -5,6 +5,7 @@ import observers.ObserverPanel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class NotificationPanel implements ObserverPanel {
     private List<Alert> alerts;
@@ -23,5 +24,13 @@ public class NotificationPanel implements ObserverPanel {
 
     public List<Alert> getAlerts() {
         return alerts;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NotificationPanel that = (NotificationPanel) o;
+        return Objects.equals(getAlerts(), that.getAlerts());
     }
 }

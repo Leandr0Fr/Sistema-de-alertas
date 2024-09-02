@@ -24,17 +24,33 @@ public class Database {
         this.topics = new ArrayList<>();
     }
 
-    public static Database getInstance(){
+    public static Database getInstance() {
         if (instance == null) instance = new Database();
         return instance;
     }
 
-    public Map<Integer, User> getUsers() {
-        return users;
+    public void addUser(User u) {
+        if (u == null) throw new NullPointerException("User no puede ser null");
+        if (getUsers().containsValue(u)) throw new IllegalArgumentException("User ya registrado");
+        getUsers().put(getNumRecordsUser(), u);
+        getObservers().put(getNumRecordsUser(), u.getNotificationPanel());
+        increaseCounter();
+    }
+
+    private void increaseCounter() {
+        setNumRecordsUser(getNumRecordsUser() + 1);
+    }
+
+    public void setNumRecordsUser(int n) {
+        this.numRecordsUser = n;
     }
 
     public int getNumRecordsUser() {
         return numRecordsUser;
+    }
+
+    public Map<Integer, User> getUsers() {
+        return users;
     }
 
     public Map<Integer, ObserverPanel> getObservers() {

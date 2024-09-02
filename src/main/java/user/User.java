@@ -21,4 +21,16 @@ public class User {
         this.topicsDenied = new ArrayList<>();
     }
 
+    public void addTopicDenied(String topicTitle){
+        if (topicsDenied.contains(topicTitle)) throw new IllegalArgumentException("El topico ya está agregado: "+ topicTitle);
+        topicsDenied.add(topicTitle);
+    }
+
+    public List<String> getTopicsDenied() {
+        return topicsDenied;
+    }
+
+    public NotificationPanel getNotificationPanel() {
+        return notificationPanel;
+    }
 }

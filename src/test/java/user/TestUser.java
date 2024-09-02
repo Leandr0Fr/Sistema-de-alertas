@@ -11,8 +11,8 @@ public class TestUser {
     public void testInvalidEmail() {
         user = new User("test", "plainaddress");
     }
-    
-    @Test(expected = IllegalArgumentException.class)
+
+    @Test()
     public void testValidEmail() {
         user = new User("test", "plainaddress@gmail.com");
     }

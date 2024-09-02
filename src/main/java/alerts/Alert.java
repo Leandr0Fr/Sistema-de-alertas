@@ -6,6 +6,7 @@ import alerts.topics.Topic;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 
 public class Alert {
@@ -55,4 +56,13 @@ public class Alert {
     public LocalDateTime getExpirationDate() {
         return expirationDate;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Alert alert = (Alert) o;
+        return isRead() == alert.isRead() && isUnique() == alert.isUnique() && Objects.equals(getExpirationDate(), alert.getExpirationDate()) && Objects.equals(topic, alert.topic);
+    }
+
 }

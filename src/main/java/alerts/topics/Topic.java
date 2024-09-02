@@ -1,5 +1,7 @@
 package alerts.topics;
 
+import java.util.Objects;
+
 public class Topic {
     private final String title;
     private final String description;
@@ -21,5 +23,13 @@ public class Topic {
 
     public String getDescription() {
         return description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Topic topic = (Topic) o;
+        return Objects.equals(title, topic.title) && Objects.equals(description, topic.description);
     }
 }

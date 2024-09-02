@@ -1,5 +1,6 @@
 package user;
 
+import alerts.Alert;
 import notifications.NotificationPanel;
 import utils.EmailValidatorImp;
 
@@ -21,9 +22,21 @@ public class User {
         this.topicsDenied = new ArrayList<>();
     }
 
-    public void addTopicDenied(String topicTitle){
-        if (topicsDenied.contains(topicTitle)) throw new IllegalArgumentException("El topico ya está agregado: "+ topicTitle);
+    public void addTopicDenied(String topicTitle) {
+        if (topicsDenied.contains(topicTitle))
+            throw new IllegalArgumentException("El topico ya está agregado: " + topicTitle);
         topicsDenied.add(topicTitle);
+    }
+
+    public boolean viewAlert(Alert alert) {
+        if (alert == null) throw new NullPointerException("alert no puede ser null");
+        for (Alert a : getNotificationPanel().getAlerts()) {
+            if (a.equals(alert)) {
+                a.readAlert();
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<String> getTopicsDenied() {

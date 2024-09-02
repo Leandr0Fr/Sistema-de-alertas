@@ -1,0 +1,17 @@
+Ejercicio SQL
+Escribir una consulta SQL que traiga todos los clientes que han comprado en total más de 100,000$ en los últimos 12 meses usando las siguientes tablas:
+
+Clientes: ID, Nombre, Apellido
+
+Ventas: Fecha, Sucursal, Numero_factura, Importe, Id_cliente
+
+RTA:
+
+SELECT clientes.nombre, clientes.apellido
+FROM clientes, ventas
+WHERE clientes.id = ventas.id_cliente AND ventas.fecha >= CURRENT_DATE - INTERVAL '12 month'
+GROUP BY clientes.nombre, clientes.apellido
+HAVING SUM(ventas.importe) >= 100000;
+
+
+PD: Utilicé PostgreSQL como implementación de SQL.
